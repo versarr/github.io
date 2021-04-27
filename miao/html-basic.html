@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
 
@@ -25,12 +26,12 @@
   <a target="_blank" href="mailto xxx@163.com">点我发送邮件</a>
   <a href="#footer">跳到页面底部</a>
   <a href="a.txt" download="a.txt">点我下载文件</a>
-  <hr>
-  <hr>
+  <hr />
+  <hr />
   <span><em>这几种强调</em><b>有什么</b><strong>区别呢？</strong><u>这个呢？</u><i>这个呢？</i></span>
-  <pre>
+  <p>
   &lt;!--这段注释需要出现在页面里面-->
-</pre>
+</p>
   <p>
     html的注释怎么写？
   </p>
@@ -42,7 +43,7 @@
     return 8
   }
 </code></pre>
-  <hr>
+  <hr />
   <ul>
     <li>小学
       <ol>
@@ -59,7 +60,7 @@
     <li>中学</li>
     <li>大学</li>
   </ul>
-  <hr>
+  <hr />
   <dl>
     <dt>班级</dt>
     <dd>三年二班</dd>
@@ -71,13 +72,13 @@
     <dd>小明</dd>
     <dd>豆豆</dd>
   </dl>
-  <hr>
+  <hr />
   <h3><strong>Google搜索</strong></h3>
   <form target="_blank" action="https://www.google.com/">
     <input type="text" title="请填写此字段">
     <input type="submit" value="在新窗口打开搜索结果">
   </form>
-  <hr>
+  <hr />
   <form action="">
     <p>个人信息调查表</p>
     <dl>
@@ -114,7 +115,9 @@
         <input type="time" name="sc">
       </dd>
       <dt>照片</dt>
-      <dd>点我上传照片，我比文件上传按钮好看</dd>
+      <dd>
+        <label><input hidden type="file" name="ss">点我上传照片，我比文件上传按钮好看</label>
+      </dd>
       <dt>肤色</dt>
       <dd>
         <input type="color" value=#000>
@@ -132,11 +135,53 @@
     <button type="submit">提交</button>
     <button type="reset">重置</button>
   </form>
-  <hr>
-  <a href="#top"><img src="https://drscdn.500px.org/photo/174778125/m%3D1170_k%3D1/2841ccf2a3720e8e794a6a6930f6ff2c"
-      width="375" height="564"></a>
-  <hr>
+  <hr />
+  <table border="1">
+    <col>
+    <col bgcolor="red">
+    <thead>
+      <th>编号</th>
+      <th>品名</th>
+      <th>进价</th>
+      <th>出价</th>
+    </thead>
+    <tbody>
+      <tr>
+        <th>aaa</th>
+        <td>aaa</td>
+        <td rowspan="2">5</td>
+        <td>aaa</td>
+      </tr>
+      <tr>
+        <th>aaa</th>
+        <td>aaa</td>
+        <td>8</td>
+      </tr>
+      <tr>
+        <th>aaa</th>
+        <td>aaa</td>
+        <td>aaa</td>
+        <td>aaa</td>
+      </tr>
+      <tr>
+        <th>aaa</th>
+        <td>aaa</td>
+        <td>aaa</td>
+        <td>aaa</td>
+      </tr>
+    </tbody>
+  </table>
+  <hr />
+  <img usemap="#map1" src="https://drscdn.500px.org/photo/174778125/m%3D1170_k%3D1/2841ccf2a3720e8e794a6a6930f6ff2c"
+    width="375" height="564">
+  <map name="map1">
+    <area shape="rect" coords="55 110 210 200" href="#top" alt="aaa">
+    <area shape="circle" coords="135 260 90" href="#top" alt="bbb">
+  </map>
+  <hr />
   <a target="_blank" href="https://www.xiaomi.com/">小米</a>
+  <br />
+  <iframe name="frame1" src="https://nodejs.org" frameborder="1"></iframe>
   <pre>
         <strong>aaa            bbbbb</strong><br>
         <small>aaa              bbbbb</small>
@@ -144,3 +189,6 @@
   <p>
     >>>>>>>>>>>>>>>>><<<<<<<<<< &lt;span&gt;&lt;&#47;span&gt; </p>
       <div id="footer"></div>
+  </body>
+  
+  </html>
