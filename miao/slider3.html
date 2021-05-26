@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      background-image: url(https://tympanus.net/Tutorials/CSS3SlidingImagePanels/images/bg.jpg);
+
+    }
+
+    h2 {
+      text-align: center;
+      color: rgba(26, 89, 120, 0.9);
+      font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
+    }
+
+    h2>span {
+      color: #7cbcd6;
+    }
+
+    div.odd>img {
+      width: 200px;
+      position: absolute;
+      top: -600px;
+      transition: 1s;
+    }
+
+    div.even>img {
+      width: 200px;
+      position: absolute;
+      bottom: -600px;
+      transition: 1s;
+    }
+
+    div {
+      height: 600px;
+      width: 200px;
+      float: left;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .container {
+      width: 800px;
+      height: 600px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    input:nth-child(1) {
+      position: absolute;
+      left: 200px;
+      top: 500px;
+      z-index: 3;
+    }
+
+    input:nth-child(2) {
+      position: absolute;
+      left: 400px;
+      top: 500px;
+      z-index: 3;
+    }
+
+    input:nth-child(3) {
+      position: absolute;
+      left: 600px;
+      top: 500px;
+      z-index: 3;
+    }
+
+    input:nth-child(1):checked~div.even img:nth-child(1),
+    input:nth-child(2):checked~div.even img:nth-child(2),
+    input:nth-child(3):checked~div.even img:nth-child(3) {
+      bottom: 53.338px;
+      z-index: 2;
+    }
+
+    input:nth-child(1):checked~div.odd img:nth-child(1),
+    input:nth-child(2):checked~div.odd img:nth-child(2),
+    input:nth-child(3):checked~div.odd img:nth-child(3) {
+      top: 0;
+      z-index: 2;
+    }
+
+    a[href] {
+      display: inline-block;
+      width: 60px;
+      height: 60px;
+      line-height: 60px;
+      text-align: center;
+      font-size: 11px;
+      font-style: italic;
+      border-radius: 50%;
+      background-color: rgba(104, 171, 194, 0.5);
+      text-decoration: none;
+      color: white;
+    }
+
+    a:hover {
+      background-color: #4fa2c4;
+    }
+
+    a:active {
+      background-color: white;
+      color: rgba(30, 110, 136, 1)
+    }
+
+    p {
+      width: 260px;
+      margin: 30px auto;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h2>SLIDING IMAGE PANELS <span>WITH CSS3</span></h2>
+  </header>
+  <p>
+    <a href="radio-slider.html">Demo1</a>
+    <a href="slider2.html">Demo2</a>
+    <a href="slider3.html">Demo3</a>
+    <a href="slider4.html">Demo4</a>
+  </p>
+  <section class=container>
+    <input type="radio" name="r1" checked>
+    <input type="radio" name="r1">
+    <input type="radio" name="r1">
+    <div class="odd">
+      <img src=".\img\2021425191935896img-1612898943120a5ee31305950c56d4edfc55cb9b95ea5_1.jpg" id="img1">
+      <img src=".\img\2021425192435944img-1612898957519b1cf1a1a7b2edc4c992b6afebea318b2_1.jpg" id="img1">
+      <img src=".\img\2021425192637780img-16128990038544032f5983d67b9ff09a1bda170e81d6f_1.jpg" id="img1">
+    </div>
+    <div class="even">
+      <img src=".\img\2021425191935896img-1612898943120a5ee31305950c56d4edfc55cb9b95ea5_2.jpg" id="img2">
+      <img src=".\img\2021425192435944img-1612898957519b1cf1a1a7b2edc4c992b6afebea318b2_2.jpg" id="img2">
+      <img src=".\img\2021425192637780img-16128990038544032f5983d67b9ff09a1bda170e81d6f_2.jpg" id="img2">
+    </div>
+    <div class="odd">
+      <img src=".\img\2021425191935896img-1612898943120a5ee31305950c56d4edfc55cb9b95ea5_3.jpg" id="img3">
+      <img src=".\img\2021425192435944img-1612898957519b1cf1a1a7b2edc4c992b6afebea318b2_3.jpg" id="img3">
+      <img src=".\img\2021425192637780img-16128990038544032f5983d67b9ff09a1bda170e81d6f_3.jpg" id="img3">
+    </div>
+    <div class="even">
+      <img src=".\img\2021425191935896img-1612898943120a5ee31305950c56d4edfc55cb9b95ea5_4.jpg" id="img4">
+      <img src=".\img\2021425192435944img-1612898957519b1cf1a1a7b2edc4c992b6afebea318b2_4.jpg" id="img4">
+      <img src=".\img\2021425192637780img-16128990038544032f5983d67b9ff09a1bda170e81d6f_4.jpg" id="img4">
+    </div>
+  </section>
+</body>
+
+</html>
