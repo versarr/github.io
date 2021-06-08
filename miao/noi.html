@@ -1,0 +1,219 @@
+<script id="ch0103/01">
+  var a = Number(prompt('请输入a'))
+  var b = Number(prompt('请输入b'))
+  console.log(a + b)
+</script>
+
+<script id="ch0103/02">
+  var a = Number(prompt('请输入a'))
+  var b = Number(prompt('请输入b'))
+  var c = Number(prompt('请输入c'))
+  console.log((a + b) * c)
+</script>
+
+<script id="ch0103/03">
+  var a = Number(prompt('请输入a'))
+  var b = Number(prompt('请输入b'))
+  var c = Number(prompt('请输入c'))
+  console.log((a + b) / c)
+</script>
+
+<script id="ch0103/04">
+  var a = Number(prompt('请输入被除数a'))
+  var b = Number(prompt('请输入除数b'))
+  console.log(a % b)
+  console.log(parseInt(a / b))
+</script>
+
+<script id="ch0103/05">
+  var a = Number(prompt('请输入整数a'))
+  var b = Number(prompt('请输入整数b'))
+  console.log((a / b).toFixed(9))
+</script>
+
+<script id="ch0103/06">
+  var a = Number(prompt('请输入确诊数a'))
+  var b = Number(prompt('请输入死亡数b'))
+  console.log((b / a * 100).toFixed(3) + '%')
+</script>
+
+<script id="ch0103/07">
+  var a = Number(prompt('请输入实数a'))
+  var b = Number(prompt('请输入实数b'))
+  var c = Number(prompt('请输入实数c'))
+  var d = Number(prompt('请输入实数d'))
+  var x = Number(prompt('请输入实数x'))
+  var f = (x) => a * x * x * x + b * x * x + c * x + d
+  console.log(f(x).toFixed(7))
+</script>
+
+<script id="ch0103/08">
+  var f = Number(prompt('请输入实数f，表示华氏温度'))
+  console.log((5 * (f - 32) / 9).toFixed(5))
+</script>
+
+<script id="ch0103/09">
+  var r = Number(prompt('输入圆的半径r'))
+  console.log('直径:' + (2 * r).toFixed(4))
+  console.log('周长:' + (2 * Math.PI * r).toFixed(4))
+  console.log('面积:' + (Math.PI * r * r).toFixed(4))
+</script>
+
+<script id="ch0103/10">
+  var r1 = Number(prompt('输入电阻r1'))
+  var r2 = Number(prompt('输入电阻r2'))
+  console.log((1 / (1 / r1 + 1 / r2)).toFixed(2))
+</script>
+
+<script id="ch0103/11">
+  var a = Number(prompt('输入正数a'))
+  var b = Number(prompt('输入正数b'))
+  console.log(a % b)
+</script>
+
+<script id="ch0103/12">
+  var r = Number(prompt('输入球的半径r'))
+  console.log((4 / 3 * Math.PI * r * r * r).toFixed(2))
+</script>
+
+<script id="ch0103/13">
+  var a = Number(prompt('输入一个三位数'))
+  var x = parseInt(a / 100)
+  var y = parseInt((a - x * 100) / 10)
+  var z = a - x * 100 - y * 10
+  console.log(z + '' + y + '' + x)
+</script>
+
+<script id="ch0103/14">
+  var h, r
+  h = Number(prompt('输入小桶的深度'))
+  r = Number(prompt('输入底面半径'))
+  console.log(parseInt(20 * 1000 / (Math.PI * r * r * h)) + 1)
+</script>
+
+<script id="ch0103/15">
+  var n, x, y
+  n = Number(prompt('输入总苹果数'))
+  x = Number(prompt('输入吃掉一个苹果所需小时'))
+  y = Number(prompt('输入经过时间'))
+  console.log(n - Math.ceil(y / x))
+</script>
+
+<script id="ch0103/16">
+  var xa, ya, xb, yb
+  xa = Number(prompt('输入A的横坐标'))
+  ya = Number(prompt('输入A的纵坐标'))
+  xb = Number(prompt('输入B的横坐标'))
+  yb = Number(prompt('输入B的纵坐标'))
+  console.log((Math.sqrt((xa - xb) * (xa - xb) + (ya - yb) * (ya - yb))).toFixed(3))
+</script>
+
+<script id="ch0103/17">
+  var x1, y1, x2, y2, x3, y3, l1, l2, l3, p
+  x1 = Number(prompt('输入顶点1横坐标'))
+  y1 = Number(prompt('输入顶点1纵坐标'))
+  x2 = Number(prompt('输入顶点2横坐标'))
+  y2 = Number(prompt('输入顶点2纵坐标'))
+  x3 = Number(prompt('输入顶点3横坐标'))
+  y3 = Number(prompt('输入顶点3纵坐标'))
+  l1 = Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2))
+  l2 = Math.sqrt((x1 - x3) * (x1 - x3) + (y1 - y3) * (y1 - y3))
+  l3 = Math.sqrt((x3 - x2) * (x3 - x2) + (y3 - y2) * (y3 - y2))
+  p = (l1 + l2 + l3) / 2
+  console.log((Math.sqrt(p * (p - l1) * (p - l2) * (p - l3))).toFixed(2))
+</script>
+
+<script id="ch0103/18">
+  var a1, a2, n
+  a1 = Number(prompt('输入等差数列第一项'))
+  a2 = Number(prompt('输入等差数列第二项'))
+  n = Number(prompt('输入项数'))
+  console.log(a1 + (n - 1) * (a2 - a1))
+</script>
+
+<script id="ch0103/19">
+  var A, B
+  A = Number(prompt('输入正整数A'))
+  B = Number(prompt('输入正整数B'))
+  console.log(A * B)
+</script>
+
+<script id="ch0103/20">
+  var n = Number(prompt('输入非负整数'))
+  console.log(Math.pow(2, n))
+</script>
+
+<script id="ch0104/01">
+  var N = Number(prompt('输入整数'))
+  if (N > 0) {
+    console.log('positive')
+  }
+  else if (N == 0) {
+    console.log('zero')
+  }
+  else {
+    console.log('negative')
+  }
+</script>
+
+<script id="ch0104/02">
+  var x = Number(prompt('输入浮点数'))
+  console.log((Math.abs(x)).toFixed(2))
+</script>
+
+<script id="ch0104/03">
+  var x = Number(prompt('输入一个整数'))
+  if (x % 2 == 1) {
+    console.log('odd')
+  }
+  else {
+    console.log('even')
+  }
+</script>
+
+<script id="ch0104/04">
+  var x = String(prompt('输入一个字符'))
+  if (x.charCodeAt() % 2 == 1) {
+    console.log('YES')
+  }
+  else {
+    console.log('NO')
+  }
+</script>
+
+<script id="ch0104/05">
+  var x, y
+  x = Number(prompt('输入整数'))
+  y = Number(prompt('输入整数'))
+  if (x > y) {
+    console.log('>')
+  }
+  else if (x == y) {
+    console.log('=')
+  }
+  else {
+    console.log('<')
+  }
+</script>
+
+<script id="ch0104/06">
+  var x = Number(prompt('输入一个正整数'))
+  if ((x >= 10) && (x <= 99)) {
+    console.log(1)
+  }
+  else {
+    console.log(0)
+  }
+</script>
+
+<script id="ch0104/07">
+  var x, y
+  x = Number(prompt('幸运瓶盖数'))
+  y = Number(prompt('鼓励瓶盖数'))
+  if ((x >= 10) || (y >= 20)) {
+    console.log(1)
+  }
+  else {
+    console.log(0)
+  }
+</script>
