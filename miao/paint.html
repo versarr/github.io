@@ -76,17 +76,14 @@
   for (var k = 240; k < 340; k = k + 4) {
     dot(10, k, color = 'black')
     dot(10, k + 1, color = 'black')
-    dot(10, k + 2, color = 'white')
-    dot(10, k + 3, color = 'white')
   }
   //两个实点两个空点
   for (var k = 360; k < 460; k = k + 5) {
     dot(10, k, color = 'black')
     dot(10, k + 1, color = 'black')
     dot(10, k + 2, color = 'black')
-    dot(10, k + 3, color = 'white')
-    dot(10, k + 4, color = 'white')
   } //三个实点两个空点
+  //还可以k++，k%5<3为black
   for (var i = 100; i < 200; i++) {
     dot(i, i, color = 'purple')
   } //45°斜线
@@ -130,22 +127,16 @@
     dot(x, y, color = 'lightgreen')
   }
   //空心圆50&200px
-  for (var x = 60; x < 160; x++) {
-    y = Math.sin(x)
-    dot(x, y, color = 'lightblue')
+      for (var x = -160; x < 160; x++) {
+        y = Math.sin(x / 20) * 20
+        dot(x + 200, y + 400, 'lightblue')
   }
   //sinx图像
-  /*for (var i = 50; i < 190; i++) {
-    for (var k = 310; k < 450; k++) {
-      for (var r = 0; r <= 255; r++) {
-        for (var g = 0; g <= 255; g++) {
-          for (var b = 0; b <= 255; b++) {
-            dot(i, k, color = 'r, g, b')
-          }
-        }
+    for (var i = 0; i < 100; i++) {
+      for (var k = 0; k < 100; k++) {
+        dot(i + 200, k + 200, 'rgb(' + i * 2.56 + ',' + k * 2.56 + ',255'))
       }
-    }
-  } *///色彩空间
+    } //色彩空间
 
 
 </script>
