@@ -1214,3 +1214,204 @@ for (var i = 1; i <= n; i++) { fact *=i sum +=fact } console.log(sum)  -->
 
   console.log(sum)
 </script>
+
+<script id="narcissistic">
+  var n = Number(prompt('input n'))
+  if (nar(n)) {
+    console.log('YES')
+  } else {
+    console.log('NO')
+  }
+  function nar(n) {
+    var data_1 = n
+    var data_2 = n
+    var sum = 0
+    var count = 0
+    while (data_1 >= 1) {
+      data_1 = data_1 / 10
+      count++
+    } //判断输入的数字的位数
+    do {
+      var x = data_2 % 10
+      sum = sum + Math.pow(x, count)
+      data_2 = (data_2 - x) / 10
+    } while (data_2 >= 1)
+    if (sum == n && n > 10) {
+      return true
+    } else {
+      return false
+    }
+  }
+</script>
+<script id="narcissistics">
+  var n = 10000
+  nars(n)
+  function nars(n) {
+    for (var i = 0; i <= n; i++) {
+      if (nar(i)) {
+        console.log(i)
+      }
+    }
+  }
+</script>
+<script id="palindrom">
+  var n = Number(prompt('input n'))
+  if (palindrom(n)) {
+    console.log('YES')
+  } else {
+    console.log('NO')
+  }
+  function palindrom(n) {
+    var data = n
+    var str = ''
+    do {
+      var x = data % 10
+      str += x
+      data = (data - x) / 10
+    } while (data > 0)
+    if (Number(str) == n) {
+      return true
+    } else {
+      return false
+    }
+  }
+</script>
+<script id="weekday">
+  var year = Number(prompt('input year'))
+  var month = Number(prompt('input month'))
+  weekday(year, month)
+  function leapYear(year) {
+    if (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)) {
+      return true
+    } else {
+      return false
+    }
+  }
+  function dayOfMonth(year, month) {
+    if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
+      return 31
+    } else if (leapYear(year) && month == 2) {
+      return 29
+    } else if (!leapYear(year) && month == 2) {
+      return 28
+    } else if (month < 1 || month > 12) {
+      return 0
+    } else {
+      return 30
+    }
+  }
+  function weekday(year, month) {
+    var day = 0
+    for (var i = 1; i < year; i++) {
+      if (leapYear(i)) {
+        day += 366
+      } else {
+        day += 365
+      }
+    }
+    for (var k = 0; k < month; k++) {
+      var data = month
+      day += dayOfMonth(year, data - 1)
+      data--
+    }
+    var week = day % 7 + 1
+    console.log(week)
+  }
+</script>
+<script id="complete-number">
+  var n = Number(prompt('input n'))
+  if (completeNumber(n)) {
+    console.log('YES')
+  } else {
+    console.log('NO')
+  }
+  function completeNumber(n) {
+    var sqrt_n = Math.sqrt(n)
+    var sum = 1
+    for (var i = 2; i <= sqrt_n; i++) {
+      if (n % i == 0) {
+        sum = sum + i + n / i
+      }
+    }
+    if (sum == n && n > 1) {
+      return true
+    } else {
+      return false
+    }
+  }
+</script>
+<script id="complete-numbers">
+  var n = 1000
+  completeNumbers(n)
+  function completeNumbers(n) {
+    for (var i = 0; i <= n; i++) {
+      if (completeNumber(i)) {
+        console.log(i)
+      }
+    }
+  }
+</script>
+<script id="prime">
+  var n = Number(prompt('input n'))
+  if (prime(n)) {
+    console.log('YES')
+  } else {
+    console.log('NO')
+  }
+  function prime(n) {
+    var sqrt_n = Math.sqrt(n)
+    for (var i = 2; i <= sqrt_n; i++) {
+      if (n % i == 0) {
+        return false
+        break
+      }
+    }
+    return true
+  }
+</script>
+<script id="primes">
+  var n = 1000
+  primes(n)
+  function primes(n) {
+    for (var i = 2; i <= n; i++) {
+      if (prime(i)) {
+        console.log(i)
+      }
+    }
+  }
+</script>
+<script id="lcf&lcm">
+  var m = Number(prompt('input m'))
+  var n = Number(prompt('input n'))
+  lcm(m, n)
+  lcf(m, n)
+  function lcm(m, n) { //最小公倍数
+    var mult = m * n / lcf(m, n)
+    return mult
+  }
+  function lcf(m, n) { //最大公约数
+    while (n > 0) {
+      var rem = m % n
+      //先用较小的数对较大的数取余，再用余数对较小的数求余，直到余数为0
+      m = n //这里即使刚开始m小于n，循环一次也可以将两个数倒过来
+      n = rem
+    }
+    return m
+  }
+</script>
+<script id="sqrt">
+  function sqrt(x) { //牛顿迭代法
+    if (x < 0)
+      return NaN
+    var k = 1e-15
+    var t = x
+    while (Math.abs(t - x / t) > k * t) {
+      //循环退出的条件是真正解与近似解的误差进入允许的范围
+      //|X* - Xk²| < ε ;等价于abs(1 - c / t^2)<k,即abs(t - c / t ) < k * t
+      t = (x / t + t) / 2
+      //t是每次迭代的近似根，当越接近真正解，c/t²越接近1，所以abs(1-c/t²)越接近0
+    }
+    return t
+  }
+
+</script>
