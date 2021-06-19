@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>画图</title>
+  <style>
+    canvas {
+      border: 2px solid #f0f;
+      display: block;
+      margin: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas width="500" height="500"></canvas>
+</body>
+<script>
+  var canvas = document.querySelector('canvas')
+  canvas.style.imageRendering = 'pixelated' //放大时的插帧方式：不插帧，直接放大像素
+  var ctx = canvas.getContext('2d')
+
+  function dot(x, y, color = 'black') {
+    x = Math.round(x)
+    y = Math.round(y)
+    ctx.fillStyle = color
+    ctx.fillRect(x, y, 1, 1)
+  }
+  /**
+   * YOUR TASK
+      * 在 坐标 (42, 42) 画出一个点
+      * 画一条实线
+      * 画一条一个实点一个空点的虚线
+      * 画一条两个实点两个空点的虚线
+      * 画一条三个实点两个空点的虚线
+      * 画一条45度的斜线
+      * 画一条30度的斜线（与x轴或y轴的夹角呈30度）
+      * 画一条跨越画布左上角和右下角的对角线
+      * 画一个空心矩形
+      * 画一个实心矩形
+      * 画两个个空心的圆，居中：
+        * 一个半径为50像素
+        * 一个半径为200像素
+      * 画一个实心的圆，半径至少为100像素
+      * 画一个【大小合适】的sin(x)的图像
+
+      * 画出rgb色彩空间的某一面（尺寸要大于100x100）
+        如果做出上一题后，尝试将其每个点的坐标乘以一个矩阵（如(2,0,0,2)或(1,0.27得到新的位置，即绘制出被线性变幻后的色彩空间某一面
+        可以考虑如下几种矩阵：
+           2 0
+           0 2
+           ------
+           1  0.27
+           0  1
+           ------
+           0.5    0.87
+           -0.87  0.5
+
+   */
+</script>
+<script>
+  // 不可更改上面的代码
+  // 你的代码写在这里
+  // YOUR CODE GOES BELOW
+  dot(42, 42, color = 'red') //点
+  for (var i = 10; i < 100; i++) {
+    dot(10, i, color = 'black')
+  } //实线
+  for (var i = 120; i < 220; i++) {
+    if (i % 2 == 0) {
+      dot(10, i, color = 'black')
+    }
+  } //一个实点一个空点
+
+  for (var k = 240; k < 340; k = k + 4) {
+    dot(10, k, color = 'black')
+    dot(10, k + 1, color = 'black')
+  }
+  //两个实点两个空点
+  for (var k = 360; k < 460; k = k + 5) {
+    dot(10, k, color = 'black')
+    dot(10, k + 1, color = 'black')
+    dot(10, k + 2, color = 'black')
+  } //三个实点两个空点
+  //还可以k++，k%5<3为black
+  for (var i = 100; i < 200; i++) {
+    dot(i, i, color = 'purple')
+  } //45°斜线
+  for (var i = 100; i < 200; i++) {
+    dot(i, i / 2, color = 'red')
+  } //30°斜线
+  for (var i = 0; i <= 500; i++) {
+    dot(i, i, color = 'yellow')
+  }
+
+  for (var k = 200; k < 300; k++) {
+    dot(50, k, color = 'aqua')
+    dot(150, k, color = 'aqua')
+  }
+  for (var i = 50; i < 150; i++) {
+    dot(i, 200, color = 'aqua')
+    dot(i, 300, color = 'aqua')
+  } //空心矩形
+
+  for (var i = 50; i < 130; i++) {
+    for (var k = 50; k < 130; k++) {
+      dot(i, k, color = 'gold')
+    }
+  }
+  //实心矩形
+  for (var degree = 0; degree <= 360; degree = degree + 0.1) {
+    for (var i = 0; i < 120; i++) {
+      x = 350 + i * Math.cos(degree)
+      y = 150 + i * Math.sin(degree)
+      dot(x, y, color = 'lightblue')
+    }
+  } //实心圆
+  for (var degree = 0; degree <= 360; degree++) {
+    x = 250 + 50 * Math.cos(degree)
+    y = 250 + 50 * Math.sin(degree)
+    dot(x, y, color = 'lightgreen')
+  }
+  for (var degree = 0; degree <= 360; degree++) {
+    x = 250 + 200 * Math.cos(degree)
+    y = 250 + 200 * Math.sin(degree)
+    dot(x, y, color = 'lightgreen')
+  }
+  //空心圆50&200px
+      for (var x = -160; x < 160; x++) {
+        y = Math.sin(x / 20) * 20
+        dot(x + 200, y + 400, 'lightblue')
+  }
+  //sinx图像
+    for (var i = 0; i < 100; i++) {
+      for (var k = 0; k < 100; k++) {
+        dot(i + 200, k + 200, 'rgb(' + i * 2.56 + ',' + k * 2.56 + ',255'))
+      }
+    } //色彩空间
+
+
+</script>
+
+</html>

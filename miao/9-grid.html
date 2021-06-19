@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
+  <title>9-grid</title>
+  <style>
+    body {
+      padding: 100px;
+      /* font-size: 0; */
+    }
+
+    table {
+      width: 300px;
+      height: 300px;
+      box-sizing: border-box;
+      border-collapse: collapse;
+    }
+
+    .grid-1 td {
+      border: 4px solid lightskyblue;
+      text-align: center;
+      position: relative;
+      padding: 0;
+    }
+
+    /* .grid-1 td:hover td {
+      position: relative;
+    } */
+    .grid-1 td:hover::after{
+      position: absolute;
+      width: 100%;
+      content: "";
+      left: -4px;
+      top: -4px;
+      height: 100%;  /*不设置宽高，设置right= -4px;bottom= -4px;也能达到同样效果*/
+      border: 4px solid gold;
+    }
+
+    .grid-2 col {
+      border: 4px solid lightskyblue;
+    }
+    .grid-2 tr {
+      border: 4px solid lightskyblue;
+    }
+    .grid-2 td {
+      text-align: center;
+    }
+    .grid-2 td:hover{
+      border: 4px solid gold;
+    }
+    .grid-3 {
+      margin: 0;
+      list-style: none;
+      width: 350px;
+      height: 350px;
+      padding: 0;
+      overflow: hidden;
+    }
+    li {
+      width: 100px;
+      float: left;
+      line-height: 100px;
+      border: 4px solid lightskyblue;
+      text-align: center;
+      margin: 0px -4px -4px 0px;
+      position: relative;
+    }
+    li:hover {
+      border: 4px solid gold;
+      z-index: 100;
+    }
+  </style>
+</head>
+
+<body>
+  <table class="grid-1">
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+      </tr>
+    </tbody>
+  </table>
+  </br>
+  <table class="grid-2">
+    <col>
+    <col>
+    <col>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+      </tr>
+      </tbody>
+  </table>
+</br>
+<ul class="grid-3">
+  <li>1</li>
+  <li>2</li>
+  <li>3</li>
+  <li>4</li>
+  <li>5</li>
+  <li>6</li>
+  <li>7</li>
+  <li>8</li>
+  <li>9</li>
+</ul>
+</body>
+  
+</html>

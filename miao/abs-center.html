@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>abs-center</title>
+  <style>
+    .parent {
+      width: 100px;
+      height: 100px;
+      border: 2px solid;
+    }
+
+    .son {
+      width: 30px;
+      height: 30px;
+      background-color: aqua;
+    }
+
+    .d1 {
+      position: relative;
+    }
+
+    .d2 {
+      position: absolute;
+      top: 35px;
+      left: 35px;
+    }
+
+    .d4 {
+      margin: 35px;
+    }
+
+    .d6 {
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 35px;
+    }
+
+    .d5 {
+      line-height: 100px;
+    }
+
+    .d7 {
+      display: table-cell;
+      vertical-align: middle;
+    }
+
+    .d8 {
+      margin: auto;
+    }
+
+    .d9 {
+      width: 30px;
+      height: 30px;
+      padding: 35px;
+    }
+  </style>
+</head>
+
+<body>
+  <h3>position</h3>
+  <div class="parent d1">
+    <div class="son d2"></div>
+  </div>
+  <h3>margin</h3>
+  <div class="parent d3">
+    <div class="son d4"></div>
+  </div>
+  <h3>line-height</h3>
+  <div class="parent d5">
+    <div class="son d6"></div>
+  </div>
+  <h3>table</h3>
+  <div class="parent d7">
+    <div class="son d8"></div>
+  </div>
+  <h3>padding</h3>
+  <div class="parent d9">
+    <div class="son d10"></div>
+  </div>
+</body>
+
+</html>
