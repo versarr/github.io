@@ -1314,7 +1314,7 @@ for (var i = 1; i <= n; i++) { fact *=i sum +=fact } console.log(sum)  -->
       day += dayOfMonth(year, data - 1)
       data--
     }
-    var week = day % 7 + 1
+    var week = (day + 1) % 7
     console.log(week)
   }
 </script>
@@ -1383,8 +1383,8 @@ for (var i = 1; i <= n; i++) { fact *=i sum +=fact } console.log(sum)  -->
 <script id="lcf&lcm">
   var m = Number(prompt('input m'))
   var n = Number(prompt('input n'))
-  lcm(m, n)
-  lcf(m, n)
+          console.log(lcm(m, n))
+          console.log(lcf(m, n))
   function lcm(m, n) { //最小公倍数
     var mult = m * n / lcf(m, n)
     return mult
@@ -1400,6 +1400,8 @@ for (var i = 1; i <= n; i++) { fact *=i sum +=fact } console.log(sum)  -->
   }
 </script>
 <script id="sqrt">
+        var x = Number(prompt('input x'))
+        console.log(sqrt(x))
   function sqrt(x) { //牛顿迭代法
     if (x < 0)
       return NaN
