@@ -135,6 +135,83 @@ function lastIndexOf(array, value, fromIndex = array.length - 1) {
   }
   return -1
 }
+function nth(array, n = 0) {
+  if (n >= 0) {
+      return array[n]
+  } else {
+      return array[array.length + n]
+  }
+}
+function reverse(array) {
+  let i = 0,
+      j = array.length - 1
+  while (j > i) {
+          let temp = array[i]
+          array[i] = array[j]
+          array[j] = temp
+          i++
+          j--
+  }
+  return array
+}
+function slice(array, start = 0, end = array.length) {
+  let res = []
+  if (start >= 0 ) {
+      if (end > 0) {
+          for ( let i = start; i < (end > array.length ? array.length : end); i++) {
+              res.push(array[i])
+          }
+      } else {
+          for (let i = start; i < array.length + end; i++) {
+              res.push(array[i])
+          }
+      }
+  } else {
+      if (end > 0) {
+          for (let i = array.length + start; i < (end > array.length ? array.length : end); i++) {
+              res.push(array[i])
+          }
+      } else {
+          for (let i = array.length + start; i < array.length + end; i++) {
+              res.push(array[i])
+          }
+      }
+  }
+  return res
+}
+function sortedIndex(array, value) {
+  let i = 0,
+  j = array.length - 1
+  while(i < j) {
+      var mid = (i + j) >> 1
+      if (array[mid] > value) {
+          j = mid 
+      } else {
+          i = mid + 1
+      }
+  }
+  return mid + 1
+}
+function tail(array) {
+  return array.slice(1)
+}
+function take(array, n = 1) {
+  return array.slice(0, n)
+}
+function takeRight(array, n = 1) {
+  return n > array.length ? array.slice() : array.slice(array.length - n)
+}
+function union(arrays) {
+  let res = []
+  for (let ary of arguments) {
+      for (let i = 0; i < ary.length; i++) {
+          if (!res.includes(ary[i])) {
+              res.push(ary[i])
+          }
+      }
+  }
+  return res
+}
   return {
     chunk: chunk,
     compact: compact,
@@ -151,5 +228,13 @@ function lastIndexOf(array, value, fromIndex = array.length - 1) {
     join: join,
     last: last,
     lastIndexOf: lastIndexOf,
+    nth: nth,
+    reverse: reverse,
+    slice: slice,
+    sortedIndex: sortedIndex,
+    tail: tail,
+    take: take,
+    takeRight: takeRight,
+    union: union
   }
 }()
