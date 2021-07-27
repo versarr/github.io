@@ -142,6 +142,16 @@ function nth(array, n = 0) {
       return array[array.length + n]
   }
 }
+function pull(array, ...values) {
+  for (let i = 0; i < values.length; i++) {
+      for (let j = 0; j < array.length; j++) {
+          if (array[j] === values[i]) {
+              array.splice(j, 1)
+          }
+      }
+  }
+  return array
+}
 function reverse(array) {
   let i = 0,
       j = array.length - 1
@@ -212,6 +222,93 @@ function union(arrays) {
   }
   return res
 }
+function uniq(array) {
+  let res = []
+  for (let i = 0; i < array.length; i++) {
+      if (!res.includes(array[i])) {
+          res.push(array[i])
+      }
+  }
+  return res
+}
+function unzip(array) {
+  let res = [],
+  temp = []
+  for (let i = 0; i < array[0].length; i++) {
+      for (let ary of array) {
+          temp.push(ary[i])
+      }
+      res.push(temp.slice())
+      temp = []
+  }
+  return res
+}
+function without(array, ...values) {
+  let res = [],
+  temp = [...values]
+  for (let i = 0; i < array.length; i++) {
+      if (!temp.includes(array[i])) {
+          res.push(array[i])
+      }
+  } 
+  return res
+}
+function xor(arrays) {
+  let res = []
+  for (let array of arguments) {
+      for (let i = 0; i < array.length; i++) {
+          if (!res.includes(array[i])) {
+              res.push(array[i])
+          } else {
+              pull(res, array[i])
+          }
+      }
+  }
+  return res
+}
+function zip(arrays) {
+  let res = [],
+  temp = []
+  for (let i = 0; i < arguments[0].length; i++) {
+      for (let array of arguments) {
+          temp.push(array[i])
+      }
+      res.push(temp.slice())
+      temp = []
+  }
+  return res
+}
+function zipObject(props, values) {
+  let res = {}
+  for (let i = 0; i < props.length; i++) {
+      Object.defineProperty(res, tprops[i], {
+          value: values[i]
+      }) 
+  }
+  return res
+}
+function bind(f, thisArg, ...partials) {
+  Object.defineProperty(bind, 'placeholder', {
+      value: '_'
+  })
+  return function(...args) {
+      let pars = partials.slice(),
+      j = 0
+      for (let i = 0; i < pars.length; i++) {
+          if (pars[i] === bind.placeholder) {
+              if (j < args.length) {
+                  pars[i] = args[j++]
+              } else {
+              pars[i] = undefined
+              }
+          } 
+      }
+      while (j < args.length) {
+          pars.push(args[j++])
+      }
+      return f.apply(thisArg, pars)
+  }
+}
   return {
     chunk: chunk,
     compact: compact,
@@ -229,12 +326,20 @@ function union(arrays) {
     last: last,
     lastIndexOf: lastIndexOf,
     nth: nth,
+    pull: pull,
     reverse: reverse,
     slice: slice,
     sortedIndex: sortedIndex,
     tail: tail,
     take: take,
     takeRight: takeRight,
-    union: union
+    union: union,
+    uniq: uniq,
+    unzip: unzip,
+    without: without,
+    xor: xor,
+    zip: zip,
+    zipObject: zipObject,
+    bind: bind
   }
 }()
