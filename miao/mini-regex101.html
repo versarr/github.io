@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>mini-regex101</title>
+  <style>
+    #regexArea,
+    #subs {
+      width: 492px;
+      outline: none;
+    }
+
+    textArea,
+    pre,
+    #substitution {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      line-height: 1.5em;
+      font-family: 'Courier New', Courier, monospace;
+      display: block;
+      padding: 5px;
+      border: 1px solid;
+      box-sizing: border-box;
+      white-space: pre-wrap;
+      word-break: break-all;
+      font-size: 16px;
+      overflow-y: scroll;
+      /* overflow-x: hidden; */
+    }
+
+    .textArea {
+      margin-top: 10px;
+      overflow: hidden;
+      position: relative;
+      width: 500px;
+    }
+
+    textArea {
+      outline: none;
+      resize: none;
+      position: relative;
+      background-color: transparent;
+    }
+
+    pre {
+      top: 0;
+      position: absolute;
+      color: transparent;
+    }
+
+    label {
+      cursor: pointer;
+    }
+
+    #errorInfo {
+      width: 200px;
+      color: brown;
+      margin-left: 20px;
+      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    }
+
+    em {
+      background-color: rgb(213, 235, 255);
+      font-style: normal;
+    }
+
+    em:empty {
+      border-right: 1px dotted purple;
+      margin-left: -1px;
+      background-color: transparent;
+    }
+
+    em:nth-of-type(even) {
+      background-color: rgb(159, 207, 255);
+    }
+
+    #substitution {
+      margin-top: 5px;
+      width: 500px;
+      height: 252px;
+    }
+  </style>
+
+</head>
+
+<body>
+  <input id="regexArea" type="text" oninput="run()" placeholder='Insert your regular expression here'>
+  <section>
+    <label><input type="checkbox" onclick="run()" id='global'>g</label>
+    <label><input type="checkbox" onclick="run()" id='ignoreCase'>i</label>
+    <label><input type="checkbox" onclick="run()" id='multiline'>m</label>
+    <span id="errorInfo"></span>
+  </section>
+  <section class="textArea">
+    <pre id="result"></pre>
+    <textarea onscroll="setScroll()" id="strInput" oninput="run()" cols="30" rows="10" spellcheck="false"
+      placeholder="Insert your test string here..."></textarea>
+  </section>
+  <input id="subs" type="text" oninput="run()" placeholder="Insert your replacement value here">
+  <section id="substitution" oninput="run()">
+
+  </section>
+  <script>
+    function gotFlags() {
+      let flags = ''
+      if (global.checked) {
+        flags += 'g'
+      }
+      if (ignoreCase.checked) {
+        flags += 'i'
+      }
+      if (multiline.checked) {
+        flags += 'm'
+      }
+      return flags
+    }
+    function setScroll() {
+      var scrollTop = strInput.scrollTop
+      result.scrollTop = scrollTop
+    }
+    function run() {
+      let regexSource = regexArea.value,
+        subsSource = subs.value,
+        flags = gotFlags()
+      if (regexSource === '') {
+        result.innerHTML = ''
+        errorInfo.innerHTML = 'Please input any regular expression!'
+        return
+      }
+      try {
+        var regex = new RegExp(regexSource, flags)
+        errorInfo.innerHTML = ''
+      } catch (e) {
+        //console.log(e)
+        errorInfo.innerHTML = e.message
+        result.innerHTML = ''
+        return
+      }
+      var str = strInput.value,
+        match
+      if (regex.global) {
+        var resultHTML = '',
+          lastIdx = regex.lastIndex
+        while (match = regex.exec(str)) {
+          resultHTML += str.slice(lastIdx, match.index)
+          resultHTML += '<em>' + match[0] + '</em>'
+          lastIdx = regex.lastIndex
+          if (match[0] == '') {
+            regex.lastIndex++
+          }
+        }
+        resultHTML += str.slice(lastIdx)
+        result.innerHTML = resultHTML + '\n'  //此处不加回车最后一行会对不齐
+        substitution.innerHTML = str.replace(regex, subsSource)
+      } else {
+        var resultHTML = ''
+        match = regex.exec(str)
+        resultHTML += str.slice(0, match.index)
+        resultHTML += '<em>' + match[0] + '</em>'
+        resultHTML += str.slice(match[0].length + match.index)
+        result.innerHTML = resultHTML + '\n'
+        substitution.innerHTML = str.replace(regex, subsSource)
+      }
+    }
+    run()
+  </script>
+</body>
+
+</html>
