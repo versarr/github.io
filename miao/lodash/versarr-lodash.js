@@ -22,9 +22,15 @@ var versarr = function(){
     return ans
 }
 function concat(array, values) {
-  let ans = []
-  for (let i = 0; i < arguments.length; i++) {
-      ans.push(arguments[i])
+  let ans = array
+  for (let i = 1; i < arguments.length; i++) {
+      if (typeof arguments[i] == 'number') {
+          ans.push(arguments[i])
+      } else {
+          for (let j = 0; j < arguments[i].length; j++) {
+              ans.push(arguments[i][j])
+          }
+      }
   }
   return ans
 }
@@ -254,16 +260,19 @@ function without(array, ...values) {
   return res
 }
 function xor(arrays) {
-  let res = []
+  let res = [],
+  temp = []
   for (let array of arguments) {
       for (let i = 0; i < array.length; i++) {
           if (!res.includes(array[i])) {
               res.push(array[i])
           } else {
-              pull(res, array[i])
+              temp.push(array[i])
           }
       }
   }
+  //let t = [... new Set(temp)]
+  pull(res, ...temp)
   return res
 }
 function zip(arrays) {
@@ -281,7 +290,7 @@ function zip(arrays) {
 function zipObject(props, values) {
   let res = {}
   for (let i = 0; i < props.length; i++) {
-      Object.defineProperty(res, tprops[i], {
+      Object.defineProperty(res, props[i], {
           value: values[i]
       }) 
   }
@@ -309,6 +318,105 @@ function bind(f, thisArg, ...partials) {
       return f.apply(thisArg, pars)
   }
 }
+var parseJson = (function() {
+  var str 
+  var i = 0
+  return function parseJson(values) {
+    str = values
+    i = 0
+    return parseValue()
+  }
+  function parseValue() {
+    var c = str[i]
+    if (c == '[') {
+      return parseArray()
+    }
+    if (c == '{') {
+      return parseObject()
+    }
+    if (c == '"') {
+      return parseString()
+    }
+    if (c == 't') {
+      return parseTrue()
+    }
+    if (c == 'f') {
+      return parseFalse()
+    }
+    if (c == 'n') {
+      return parseNull()
+    }
+    return parseNumber()
+  }
+  function parseTrue() {
+    let s = str.substr(i, 4)
+         if (s !== 'true') {
+           throw new SyntaxError('unexpected token:' + s + 'at' + i)
+         }
+        i += 4
+        return true
+  }
+  function parseFalse() {
+    let s = str.substr(i, 5)
+         if (s !== 'false') {
+           throw new SyntaxError('unexpected token:' + s + 'at' + i)
+         }
+        i += 5
+        return false
+  }
+  function parseNull() {
+    i += 4
+    return null
+  }
+  function parseString() {
+    i++  //跳过字符串开头的引号
+    let res = ''
+    while (str[i] !== '"') {
+      res += str[i++]
+    }
+    i++  //跳过字符串末尾引号
+    return res
+  }
+  function parseNumber() {
+    let numStr = ''
+    while (str[i] >= '0' && str[i] <= '9') {
+      numStr += str[i++]
+    }
+    return Number(numStr)
+  }
+  function parseArray() {
+    let res = []
+    i++
+    while (str[i] !== ']') {
+      var val = parseValue() //此处因为数组元素可以是任何类型,所以调用parseValue
+      res.push(val)
+      if (str[i] == ',') {
+        i++
+      } else if (str[i] == ']') { //遇到]当前数组结束
+        break
+      } else {
+        throw new SyntaxError('unexpected token at' + i)
+      }
+    }
+    i++
+    return res
+  }
+  function parseObject() {
+    let res = {}
+    i++
+    while (str[i] !== '}') {
+      var key = parseString()
+      i++  //跳过冒号
+      var val = parseValue()
+      res[key] = val
+      if (str[i] == ',') {
+        i++
+      }
+    }
+    i++
+    return res
+  }
+})()
   return {
     chunk: chunk,
     compact: compact,
@@ -340,6 +448,7 @@ function bind(f, thisArg, ...partials) {
     xor: xor,
     zip: zip,
     zipObject: zipObject,
-    bind: bind
+    bind: bind,
+    parseJson: parseJson
   }
 }()
