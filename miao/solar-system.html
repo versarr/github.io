@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .planet {
+      width: 600px;
+      height: 600px;
+      margin-top: 200px;
+      margin-left: 300px;
+      position: relative;
+    }
+    #sun,
+    #earth,
+    #moon {
+      margin: auto;
+      border-radius: 100%;
+      position: absolute;
+    }
+    #sun {
+      background-color: rgb(230, 56, 25);
+      width: 70px;
+      height: 70px;
+
+    }
+    #earth {
+      background-color: rgb(72, 153, 199);
+      width: 35px;
+      height: 35px;
+    }
+    #moon {
+      background-color: rgb(224, 233, 148);
+      width: 20px;
+      height: 20px;
+    }
+  </style>
+  
+</head>
+<body>
+  <section class="planet" >
+    <div id="sun">
+    </div>
+    <div id="earth">
+    </div>
+    <div id="moon"></div>
+  </section>
+</body>
+<script>
+  var sun = document.getElementById('sun'),
+   earth = document.getElementById('earth'),
+   moon = document.getElementById('moon'),
+   angle1 = 0,
+   angle2 = 0,
+   angle3 = 0,
+   lastTime = null
+   requestAnimationFrame(function animate(time) {
+    if (lastTime !== null) {
+      angle1 += (time - lastTime) * 0.001
+      angle2 += (time - lastTime) * 0.003
+      angle3 += (time - lastTime) * 0.004
+    }
+    lastTime = time
+    let x1 = (Math.sin(angle1) * 100) - 35,
+        y1 = (Math.cos(angle1) * 200) - 35,
+        x2 = (Math.sin(angle2) * 50) + 35 - 17.5 + x1,
+        y2 = (Math.cos(angle2) * 100) + 35 - 17.5 + y1,
+        x3 = (Math.sin(angle3) * 15) + 17.5 - 10 + x2,
+        y3 = (Math.cos(angle3) * 30) + 17.5 - 10 + y2
+    sun.style.top = x1 + 'px'
+    sun.style.left = y1 + 'px'
+    earth.style.top = x2 + 'px'
+    earth.style.left = y2 + 'px'
+    moon.style.top = x3 + 'px'
+    moon.style.left = y3 + 'px'
+    requestAnimationFrame(animate)
+   })
+  // function animateSun(time) {
+  //   if (lastTime !== null) {
+  //     angle += (time - lastTime) * 0.001
+  //   }
+  //   lastTime = time
+  //   sun.style.top = (Math.sin(angle) * 100) + 'px'
+  //   sun.style.left = (Math.cos(angle) * 200) + 'px'
+  //   requestAnimationFrame(animateSun)
+  // }
+  // function animateEarth(time) {
+  //   if (lastTime !== null) {
+  //     angle += (time - lastTime) * 0.002
+  //   }
+  //   lastTime = time
+  //   earth.style.top = (Math.sin(angle) * 50) + 'px'
+  //   earth.style.left = (Math.cos(angle) * 100) + 'px'
+  //   requestAnimationFrame(animateEarth)
+  // }
+  // function animateMoon(time) {
+  //   if (lastTime !== null) {
+  //     angle += (time - lastTime ) * 0.003
+  //   }
+  //   lastTime = time
+  //   moon.style.top = (Math.sin(angle) * 15) + 'px'
+  //   moon.style.left = (Math.cos(angle) * 30) + 'px'
+  //   requestAnimationFrame(animateMoon)
+  // }
+  // requestAnimationFrame(animateSun)
+  // requestAnimationFrame(animateEarth)
+  // requestAnimationFrame(animateMoon)
+</script>
+</html>
