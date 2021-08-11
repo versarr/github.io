@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    div {
+      width: 20px;
+      height: 20px;
+      background-color: rgb(118, 153, 219);
+      position: absolute;
+    }
+
+    #d1 {
+      background-color: rgb(170, 151, 238);
+    }
+  </style>
+</head>
+
+<body>
+  <div style="top: 100px; left: 100px;"></div>
+  <div id="d1" style="top: 200px; left: 100px;"></div>
+</body>
+<script>
+  let d = document.getElementsByTagName('div').item(0),
+    d1 = document.getElementById("d1"),
+    x = 0,
+    y = 0,
+    x1 = 0,
+    y1 = 0,
+    left = false,
+    left1 = false,
+    right = false,
+    right2 = false,
+    up = false,
+    up1 = false,
+    down = false,
+    down2 = false   //共用flag在相对运动时有bug.....
+  document.addEventListener("keydown", function (e) {
+    //console.log(e)
+    if (e.keyCode == 87) {  //w
+      y = -1
+      up = true  //只要按下了,标志位就设为true
+    }
+    if (e.key == 'ArrowUp') {
+      y1 = -1
+      up1 = true
+    }
+    if (e.keyCode == 83) {  //s
+      y = 1
+      down = true
+    }
+    if (e.key == 'ArrowDown') {
+      y1 = 1
+      down1 = true
+    }
+    if (e.keyCode == 65) {  //a
+      x = -1
+      left = true
+    }
+    if (e.key == 'ArrowLeft') {
+      x1 = -1
+      left1 = true
+    }
+    if (e.keyCode == 68) {   //d
+      x = 1
+      right = true
+    }
+    if (e.key == 'ArrowRight') {
+      x1 = 1
+      right1 = true
+    }
+  })
+  document.addEventListener("keyup", function (e) {
+    //console.log(up)
+    if (e.keyCode == 87) {  //处理按下两个相对方向的情况
+      up = false
+      if (down) {
+        y = 1
+      } else {
+        y = 0
+      }
+    }
+    if (e.key == 'ArrowUp') {
+      up1 = false
+      if (down1) {
+        y1 = 1
+      } else {
+        y1 = 0
+      }
+    }
+    if (e.keyCode == 83) {
+      down = false
+      if (up) {
+        y = -1
+      } else {
+        y = 0
+      }
+    }
+    if (e.key == 'ArrowDown') {
+      down1 = false
+      if (up1) {
+        y1 = -1
+      } else {
+        y1 = 0
+      }
+    }
+    if (e.keyCode == 65) {
+      left = false
+      if (right) {
+        x = 1
+      } else {
+        x = 0
+      }
+    }
+    if (e.key == 'ArrowLeft') {
+      left1 = false
+      if (right1) {
+        x1 = 1
+      } else {
+        x1 = 0
+      }
+    }
+    if (e.keyCode == 68) {
+      right = false
+      if (left) {
+        x = -1
+      } else {
+        x = 0
+      }
+    }
+    if (e.key == 'ArrowRight') {
+      right1 = false
+      if (left1) {
+        x1 = -1
+      } else {
+        x1 = 0
+      }
+    }
+  })
+  let lastTime = 0
+  requestAnimationFrame(function move(time) {
+    let t = time - lastTime
+    lastTime = time
+    d.style.left = parseFloat(d.style.left) + x * t * 0.1 + 'px'  //0.1只是为了缩小单位移动距离
+    d.style.top = parseFloat(d.style.top) + y * t * 0.1 + 'px'
+    d1.style.left = parseFloat(d1.style.left) + x1 * t * 0.1 + 'px'
+    d1.style.top = parseFloat(d1.style.top) + y1 * t * 0.1 + 'px'
+    requestAnimationFrame(move)
+  })
+</script>
+
+</html>
