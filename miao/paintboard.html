@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    section {
+      width: 100%;
+      height: 500px;
+      display: flex;
+    }
+
+    svg {
+      flex: 500px;
+      border: 1px solid;
+    }
+
+    #tools {
+      margin-left: 10px;
+    }
+
+    /* #widthSel,
+    #colorSel,
+    #clearAll,
+    #circle {
+      display: block;
+    } */
+
+    #widthSel {
+      width: 60px;
+    }
+
+    #clearAll {
+      background-color: rgb(231, 146, 146);
+      width: 50px;
+      height: 27px;
+    }
+  </style>
+</head>
+
+<body>
+  <section>
+    <svg id="paint"></svg>
+    <div id="tools">
+      <p>* select color</p>
+      <input id="colorSel" type="color">
+      <p>* select line's width:<span id="widthNum">3</span></p>
+      <input id="widthSel" type="range" min="1" max="5" value="3" step="1">
+      <p>* clear all</p>
+      <button id="clearAll">clear</button>
+    </div>
+  </section>
+</body>
+<script>
+  let pa = document.getElementById("paint")
+  pa.addEventListener("mousedown", function (e) {
+    var pos = mousePos(pa),
+      polyline = document.createElementNS("http://www.w3.org/2000/svg", 'polyline'),
+      points = `${pos.x} ${pos.y} `
+    // str = '' //points参数
+
+    polyline.setAttribute('fill', 'none')
+    polyline.setAttribute('stroke', colorSel.value)
+    polyline.setAttribute('stroke-width', widthSel.value)
+    polyline.setAttribute('stroke-linecap', 'round')
+    polyline.setAttribute('stroke-linejoin', 'round')
+    //start = pos
+    pa.append(polyline)
+    polyline.setAttribute('points', points)
+    function drawPath(e) {
+      var pos = mousePos(pa)
+      // if (start == null) {
+      //   str = str + pos.x
+      //   str = str + ',' + pos.y
+      // } else {
+      //   str = str + ' ' + start.x
+      //   str = str + ',' + start.y
+      // }
+      // str = str + ' ' + pos.x
+      // str = str + ',' + pos.y
+      // console.log(str)
+      points += `${pos.x} ${pos.y} `
+      polyline.setAttribute('points', points)
+    }
+    document.addEventListener('mousemove', drawPath)
+    document.addEventListener('mouseup', function once() {
+      //  start = null
+      document.removeEventListener('mouseup', once)
+      document.removeEventListener('mousemove', drawPath)
+    })
+
+  })
+  //let line = pa.lastElementChild
+  //撤销上一次操作
+  document.addEventListener('keydown', function (e) {
+    //if (e.keyCode == 90 && e.keyCode == 17) {//ctr+z
+    if (e.ctrlKey && e.keyCode == 90) {  //上行是两个event......
+      //console.log(e)
+      if (pa.lastElementChild) {
+        pa.removeChild(pa.lastElementChild)
+      }
+    }
+  })
+  //获取鼠标坐标
+  function mousePos(node) {
+    let box = node.getBoundingClientRect()
+    return {
+      x: window.event.clientX - box.x,
+      y: window.event.clientY - box.y,
+    }
+  }
+  //笔刷粗细,default = 3
+  let width = document.querySelector('#widthNum'),
+    widthSel = document.getElementById('widthSel')
+  widthSel.addEventListener('input', function (e) {
+    width.textContent = widthSel.value
+  })
+  //清空所有内容,增加二次确认
+  let clearAll = document.getElementById('clearAll')
+  clearAll.addEventListener('click', function (e) {
+    let msg = 'confirm delection?'
+    if (confirm(msg) == true) {
+      while (pa.firstChild) {
+        pa.removeChild(pa.firstChild)
+      }
+    } else {
+      return false
+    }
+  })
+</script>
+
+</html>
