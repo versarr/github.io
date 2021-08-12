@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .mydiv {
+      width: 100px;
+      height: 100px;
+      border: 1px solid;
+      position: fixed;
+      /*此处改用fixed,元素的包含块为viewport视口*/
+      background-color: rgb(102, 211, 205);
+      user-select: none;
+      /*控制用户能否选中文本*/
+    }
+
+    #d2 {
+      background-color: rgb(132, 167, 233);
+    }
+
+    #d3 {
+      background-color: rgb(197, 97, 135);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="mydiv" id="d1" style="top: 20px; left: 20px; "></div>
+  <div class="mydiv" id="d2" style="top: 70px; left: 50px; "></div>
+  <div class="mydiv" id="d3" style="top: 100px; left: 50px; "></div>
+</body>
+<script>
+  let index = 1
+  // isMove = false
+  document.addEventListener('mousedown', function (e) {
+    if (!e.target.classList.contains('mydiv')) {
+      return    //拖拽非目标元素区域,不会触发事件
+    }
+    let prex = e.clientX,
+      prey = e.clientY,
+      el = e.target,
+      elPrex = parseFloat(el.style.left),
+      elPrey = parseFloat(el.style.top)
+    isMove = true
+    el.style.zIndex = index++
+    window.addEventListener('mousemove', function move(ev) {
+      if (ev.which === 0 || ev.buttons === 0) {
+        window.removeEventListener('mousemove', move)
+        return
+      }
+      //if (isMove == true) {
+      var curx = ev.clientX,
+        cury = ev.clientY,
+        dx = curx - prex,
+        dy = cury - prey,
+        left = elPrex + dx,
+        top = elPrey + dy
+      if (left < 0) {
+        left = 0
+      }
+      if (left > window.innerWidth - el.offsetWidth) {
+        //元素应该是右边缘接触到视口边缘就不再向右移动,所以需要减去元素宽度
+        left = window.innerWidth - el.offsetWidth
+      }
+      if (top < 0) {
+        top = 0
+      }
+      if (top > window.innerHeight - el.offsetHeight) {
+        top = window.innerHeight - el.offsetHeight
+      }
+      el.style.top = top + 'px'
+      el.style.left = left + 'px'
+      //  }
+    })
+  })
+//   document.addEventListener('mouseUp', function (ev) {
+//     if (isMove == true) {
+//       isMove = false
+//       console.log(isMove)
+//     }
+// })
+
+
+</script>
+
+</html>
