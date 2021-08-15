@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    div {
+      width: 20px;
+      height: 20px;
+      border-radius: 100%;
+      background-color: rgb(245, 158, 158);
+      position: fixed;
+    }
+  </style>
+</head>
+
+<body>
+  <div style="top: 0; left: 0;"></div>
+  <div style="top: 0; left: 0;"></div>
+  <div style="top: 0; left: 0;"></div>
+  <div style="top: 0; left: 0;"></div>
+  <div style="top: 0; left: 0;"></div>
+</body>
+<script>
+  let divs = document.getElementsByTagName('div'),
+    vx = 0,
+    vy = 0
+  window.addEventListener('mousemove', function (e) {
+    vx = e.clientX
+    vy = e.clientY
+  })
+  requestAnimationFrame(function move(time) {
+    let angle = time * 0.001
+    for (let mydiv of divs) {
+      mydiv.style.top = Math.sin(angle) * 100 + vy + 'px'
+      mydiv.style.left = Math.cos(angle) * 100 + vx + 'px'
+      // angle += 0.5
+      angle += Math.PI * 2 / divs.length  //使所有旋转元素的转动间隔均分360度(一周)
+    }
+    requestAnimationFrame(move)
+  })
+  8
+</script>
+
+</html>
