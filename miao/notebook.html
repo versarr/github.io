@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    button {
+      border: none;
+      float: left;
+      background-color: rgb(247, 187, 187);
+      z-index: 9;
+      height: 20px;
+      width: 20px;
+      /* font-size: 20px; */
+      position: relative;
+      padding: 0;
+      pointer-events: auto;
+    }
+
+    .del {
+      float: right;
+    }
+
+    .note {
+      vertical-align: top;
+      outline: none;
+      /* pointer-events: none; */
+    }
+
+    h2 {
+      margin: 0;
+      height: 20px;
+      background-color: rgb(247, 187, 187);
+      pointer-events: none;
+      /* 鼠标穿透该元素,否则无法触发拖拽 */
+      /* 也可以在实现拖拽的代码里,改变e.target的父元素的位置 */
+    }
+
+    .container {
+      position: fixed;
+      box-shadow: 3px 3px 3px 3px rgba(241, 121, 215, 0.2);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container" style="top: 30px; left: 30px;">
+    <h2>
+      <button class="newCreate">+</button>
+      <button class="del">X</button>
+    </h2>
+    <textarea name="note" class="note" cols="30" rows="10" id="note1">
+    </textarea>
+  </div>
+</body>
+<script>
+  let body = document.querySelector('body')
+  let preLeft = 30,
+    preRight = 30
+  document.addEventListener('click', function (e) {
+    if (e.target.classList.contains('newCreate')) { //新建便签
+      let mydiv = document.createElement('div'),
+        myh2 = document.createElement('h2'),
+        mybut1 = document.createElement('button'),
+        mybut2 = document.createElement('button'),
+        mytext = document.createElement('textarea'),
+        myid = genID()
+      mytext.setAttribute('id', myid)
+      mydiv.classList.add('container')
+      mybut1.classList.add('newCreate')
+      mybut2.classList.add('del')
+      mytext.classList.add('note')
+      preLeft += 10
+      preRight += 10
+      mydiv.style.top = preLeft + 'px'
+      mydiv.style.left = preRight + 'px'
+      mytext.setAttribute('cols', '30')
+      mytext.setAttribute('rows', '10')
+      mybut1.append('+')
+      mybut2.append('X')
+      myh2.append(mybut1, mybut2)
+      mydiv.append(myh2, mytext)
+      body.append(mydiv)
+    }
+    if (e.target.classList.contains('del')) { //删除便签
+      let temp = e.target.parentNode.parentNode
+      body.removeChild(temp)
+    }
+  })
+  //生成随机id
+  function genID(length) {
+    return Number(Math.random().toString().substr(3, length) + Date.now()).toString(36);
+  }
+  //拖拽功能
+  let index = 1
+  document.addEventListener('mousedown', function (e) {
+    if (!e.target.classList.contains('container')) {
+      return
+    }
+    let prex = e.clientX,
+      prey = e.clientY,
+      el = e.target,
+      elprex = parseFloat(el.style.left),
+      elprey = parseFloat(el.style.top)
+    el.style.zIndex = index++
+    window.addEventListener('mousemove', function move(ev) {
+      if (ev.which === 0 || ev.buttons === 0) {
+        window.removeEventListener('mousemove', move)
+        return
+      }
+      var curx = ev.clientX,
+        cury = ev.clientY,
+        dx = curx - prex,
+        dy = cury - prey,
+        left = elprex + dx,
+        top = elprey + dy
+      if (left < 30) {
+        left = 30
+      }
+      if (left > window.innerWidth - el.offsetWidth - 30) {
+        left = window.innerWidth - el.offsetWidth - 30
+      }
+      if (top < 30) {
+        top = 30
+      }
+      if (top > window.innerHeight - el.offsetHeight - 30) {
+        top = window.innerHeight - el.offsetHeight - 30
+      }
+      el.style.top = top + 'px'
+      el.style.left = left + 'px'
+    })
+  })
+  //保存到本地
+  let notes = document.getElementsByClassName('note')
+  document.addEventListener('input', function (e) {
+    if (!e.target.classList.contains('note')) {
+      return
+    }
+    saveToStorage(e.target)
+  })
+  // for (let note of notes) {
+  //   note.addEventListener('input', function () {
+  //     saveToStorage(note)
+  //   })
+  // }这种写法在新建便签之后,新建的便签不会执行这块代码,无法保存
+  function saveToStorage(node) {
+    localStorage.setItem(node.id, JSON.stringify(node.value));
+  }
+
+</script>
+
+</html>
