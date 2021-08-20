@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <input type="text">
+  <ul></ul>
+</body>
+<script>
+  let write = document.querySelector('input'),
+    ul = document.querySelector('ul'),
+    currentResultStartTime = 0
+  write.addEventListener('input',
+    debounce(e => {
+      let startTime = Date.now()
+      getSuggests(e.target.value, (suggests) => {
+        if (currentResultStartTime > startTime) {
+          return
+        }
+        currentResultStartTime = startTime
+        ul.innerHTML = ''
+        suggests.forEach(suggest => {
+          let li = document.createElement('li')
+          li.textContent = suggest
+          ul.append(li)
+        })
+      })
+    }, 200)
+  )
+  function getSuggests(word, callback) {
+    let suggests = Array(10).fill(0).map((xxx, i) => {
+      return word + i
+    })
+    setTimeout(() => {
+      callback(suggests)
+    }, 1000 + 1000 * Math.random())
+  }
+  //拖放操作生成的 DataTransfer对象
+  function getFileContent(f, file) {
+    let fr = new FileReader()
+    fr.addEventListener('load', () => {
+      f(fr.result)
+    })
+    fr.readAsText(file)
+  }
+  //防抖函数
+  function debounce(f, duration) {
+    let id,
+      lastArgs,
+      lastThis,
+      lastReturnValue
+    return function (...args) {
+      lastArgs = args
+      lastThis = this
+      clearTimeout(id)
+      id = setTimeout(() => {
+        lastReturnValue = f.call(lastThis, ...lastArgs)
+      }, duration)
+      return lastReturnValue
+    }
+  }
+</script>
+
+</html>
