@@ -13,9 +13,13 @@
       display: flex;
     }
 
-    svg {
+    #container {
       flex: 500px;
+    }
+    svg {
       border: 1px solid;
+      width: 100%;
+      height: 100%;
     }
 
     #tools {
@@ -33,7 +37,7 @@
       width: 60px;
     }
 
-    #clearAll {
+    button {
       background-color: rgb(231, 146, 146);
       width: 50px;
       height: 27px;
@@ -43,7 +47,9 @@
 
 <body>
   <section>
-    <svg id="paint"></svg>
+    <div id="container">
+      <svg id="paint"></svg>
+    </div>
     <div id="tools">
       <p>* select color</p>
       <input id="colorSel" type="color">
@@ -51,12 +57,18 @@
       <input id="widthSel" type="range" min="1" max="5" value="3" step="1">
       <p>* clear all</p>
       <button id="clearAll">clear</button>
+      <p>* save</p>
+      <button onclick="save()">save</button>
+      <p>* open</p>
+      <button onclick="openFile()">open</button>
+      <input type="file" id="fileInput" accept=".svg" hidden>
     </div>
   </section>
 </body>
 <script>
   let pa = document.getElementById("paint")
   pa.addEventListener("mousedown", function (e) {
+    drawAndnoSave = true
     var pos = mousePos(pa),
       polyline = document.createElementNS("http://www.w3.org/2000/svg", 'polyline'),
       points = `${pos.x} ${pos.y} `
@@ -130,6 +142,41 @@
       return false
     }
   })
+  let drawAndnoSave = false
+  window.addEventListener('beforeunload', e => {
+    if (drawAndnoSave) {
+      return e.returnValue = '本次编辑尚未保存,是否退出?'
+    }
+  })
+   function save() {
+    drawAndnoSave = false
+    let svgSource = pa.outerHTML,
+        blob = new Blob(['<?xml version="1.0" encoding="utf-8"?>', svgSource], {type: 'image/xml+svg'}),
+        url = URL.createObjectURL(blob),
+        anchor = document.createElement('a')
+        anchor.href = url
+        anchor.download = 'mypaint.svg'
+        anchor.click()
+   }
+   function openFile() {
+     if (drawAndnoSave) {
+       let msg = confirm('当前绘画尚未保存,是否打开新文件?')
+       if (msg == false) {
+         return
+       }
+     }
+     fileInput.click()
+   }
+   fileInput.addEventListener('change', e => {
+     let svgFile = fileInput.files[0],
+        fr = new FileReader()
+      fr.addEventListener('load', () => {
+        let svgFileContent = fr.result
+        container.innerHTML = svgFileContent
+        svg = container.querySelector('svg')
+      })
+      fr.readAsText(svgFile)
+   })
 </script>
 
 </html>
